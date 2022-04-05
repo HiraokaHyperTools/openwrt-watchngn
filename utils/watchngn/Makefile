@@ -44,4 +44,4 @@ define Package/watchngn/install
 	$(INSTALL_DATA) ./files/watchngn.config $(1)/etc/config/watchngn
 endef
 
-$(eval $(call BuildPackage,watchcat))
+$(eval $(call BuildPackage,watchngn))
