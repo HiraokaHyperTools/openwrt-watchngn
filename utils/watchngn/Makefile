@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=watchngn
 PKG_VERSION:=0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_MAINTAINER:=kenjiuno <ku@digitaldolphins.jp>
 PKG_LICENSE:=GPL-2.0
