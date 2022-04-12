@@ -46,13 +46,13 @@ reboot_now() {
 }
 
 watchngn_restart_network_iface() {
-	logger -t INFO "Restarting network interface: \"$1\"."
+	logger -p daemon.info -t "watchngn[$$]" "Restarting network interface: \"$1\"."
 	ip link set "$1" down
 	ip link set "$1" up
 }
 
 watchngn_restart_all_network() {
-	logger -t INFO "Restarting networking now by running: /etc/init.d/network restart"
+	logger -p daemon.info -t "watchngn[$$]" "Restarting networking now by running: /etc/init.d/network restart"
 	/etc/init.d/network restart
 }
 
