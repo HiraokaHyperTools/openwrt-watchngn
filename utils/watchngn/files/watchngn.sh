@@ -56,6 +56,11 @@ watchngn_restart_all_network() {
 	/etc/init.d/network restart
 }
 
+watchngn_odhcp6c_renew() {
+	logger -p daemon.info -t "watchngn[$$]" "Triggering odhcp6c to renew"
+	kill -SIGUSR2 `pidof odhcp6c`
+}
+
 watchngn_monitor_network() {
 	failure_period="$1"
 	ping_hosts="$2"
@@ -113,9 +118,9 @@ watchngn_monitor_network() {
 
 		[ "$((time_now - time_lastcheck_withinternet))" -ge "$failure_period" ] && {
 			if [ "$iface" != "" ]; then
-				watchngn_restart_network_iface "$iface"
+				watchngn_odhcp6c_renew "$iface"
 			else
-				watchngn_restart_all_network
+				watchngn_odhcp6c_renew
 			fi
 			/etc/init.d/watchngn start
 			# Restart timer cycle.
@@ -128,7 +133,7 @@ watchngn_monitor_network() {
 mode="$1"
 
 case "$mode" in
-restart_iface)
+renew)
 	watchngn_monitor_network "$2" "$3" "$4" "$5" "$6"
 	;;
 *)
