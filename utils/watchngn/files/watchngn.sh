@@ -80,6 +80,8 @@ watchngn_monitor_network() {
 
 	ping_size="$(get_ping_size "$ping_size")"
 
+	logger -p daemon.info -t "watchngn[$$]" "Start watching"
+
 	while true; do
 		# account for the time ping took to return. With a ping time of 5s, ping might take more than that, so it is important to avoid even more delay.
 		time_now="$(cat /proc/uptime)"
