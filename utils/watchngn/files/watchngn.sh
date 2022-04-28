@@ -124,7 +124,17 @@ watchngn_monitor_network() {
 			else
 				watchngn_odhcp6c_renew
 			fi
+
+			logger -p daemon.info -t "watchngn[$$]" "Entering restart sleep"
+			sleep 300
+			logger -p daemon.info -t "watchngn[$$]" "Leaving restart sleep"
+
 			/etc/init.d/watchngn start
+
+			# Restart sleep should not be considered as downtime.
+			time_now="$(cat /proc/uptime)"
+			time_now="${time_now%%.*}"
+
 			# Restart timer cycle.
 			time_lastcheck_withinternet="$time_now"
 		}
